@@ -305,7 +305,18 @@ html, body {
   <div class="bg"></div>
   <div class="glass" id="s41-panel">
     <p class="panel-text">¿Te gusta ser mi vampirita?</p>
-    <button class="yes-btn" onclick="goTo('s5')">Sí</button>
+    <div style="display:flex; gap:20px; justify-content:center;">
+      <button class="yes-btn" onclick="goTo('s5')">Sí</button>
+      <button class="yes-btn" onclick="goTo('s42')">Ya no</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PAGE 4.2 — DEAD END ══ -->
+<div class="screen" id="s42">
+  <div class="bg" style="background-image:url('images/image2.jpg');"></div>
+  <div class="glass" id="s42-panel" style="position:relative;z-index:2;max-width:520px;width:90%;padding:52px;text-align:center;">
+    <p class="panel-text">Mentirosa.</p>
   </div>
 </div>
 
