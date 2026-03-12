@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Un nuevo comienzo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --crimson: #8b0000;
+  --crimson-lt: #c0392b;
+  --rose: #ff4458;
+  --black: #080808;
+  --deep: #110000;
+  --ice: #fff0f0;
+  --ft: 'Cinzel', serif;
+  --fb: 'Cormorant Garamond', serif;
+  --panel: rgba(8,0,0,0.58);
+  --pblur: blur(22px) saturate(1.3);
+  --pborder: 1px solid rgba(180,0,30,0.22);
+  --pr: 20px;
+  --ps: 0 8px 40px rgba(0,0,0,0.7), 0 0 60px rgba(139,0,0,0.15);
+}
+
+html, body {
+  margin: 0; padding: 0; width: 100%; height: 100%;
+  overflow: hidden; font-family: var(--fb); background: #000;
+}
+
+.screen {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; overflow: hidden;
+  opacity: 0; pointer-events: none; transition: opacity 0.8s ease;
+}
+.screen.active { opacity: 1; pointer-events: auto; }
+
+.bg {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  background-size: cover; background-position: center; z-index: 0;
+}
+.bg::after {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(6,0,0,0.54);
+}
+
+.glass {
+  background: var(--panel);
+  backdrop-filter: var(--pblur);
+  -webkit-backdrop-filter: var(--pblur);
+  border: var(--pborder);
+  border-radius: var(--pr);
+  box-shadow: var(--ps);
+  box-sizing: border-box;
+}
+
+.panel-text {
+  font-family: var(--fb);
+  font-size: 1.08rem;
+  line-height: 2.2;
+  color: rgba(255,238,238,0.93);
+  font-weight: 300;
+  font-style: italic;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.6);
+  text-align: center;
+  margin: 0;
+}
+
+/* circle arrow button */
+.circle-btn {
+  width: 54px; height: 54px; border-radius: 50%;
+  border: 1.5px solid rgba(180,0,30,0.65);
+  background: rgba(139,0,0,0.12);
+  cursor: pointer; display: flex; align-items: center;
+  justify-content: center; position: relative;
+  transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  margin: 0 auto;
+}
+.circle-btn::before {
+  content: ''; position: absolute; width: 70px; height: 70px;
+  border-radius: 50%; border: 1px solid rgba(180,0,30,0.22);
+  animation: ring-pulse 2.5s ease-out infinite;
+}
+@keyframes ring-pulse {
+  0% { transform: scale(0.85); opacity: 0.7; }
+  100% { transform: scale(1.55); opacity: 0; }
+}
+.circle-btn:hover {
+  background: rgba(139,0,0,0.35);
+  border-color: var(--rose);
+  transform: scale(1.08);
+}
+.circle-btn svg {
+  width: 20px; height: 20px; stroke: #ff6070; fill: none;
+  stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+  animation: arrow-bob 2s ease-in-out infinite;
+}
+@keyframes arrow-bob {
+  0%,100% { transform: translateY(-2px); }
+  50% { transform: translateY(2px); }
+}
+
+/* ── PAGE 1 ── */
+#s1 .bg { background-image: url('wallpaper.jpeg'); }
+#s1-panel {
+  position: relative; z-index: 2;
+  max-width: 600px; width: 90%;
+  padding: 52px 56px 48px;
+  text-align: center;
+  display: flex; flex-direction: column; gap: 44px; align-items: center;
+}
+
+/* ── PAGE 2 ── */
+#s2 .bg { background-image: url('wallpaper.jpeg'); }
+#s2-inner {
+  position: relative; z-index: 2;
+  max-width: 660px; width: 92%;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 22px;
+}
+#s2-question { padding: 30px 40px; text-align: center; }
+#s2-img {
+  width: 100%; max-height: 300px;
+  border-radius: 10px; object-fit: cover;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.75), 0 0 30px rgba(139,0,0,0.2);
+  display: block;
+}
+.choice-btns { display: flex; gap: 16px; justify-content: center; width: 100%; }
+.choice-btn {
+  flex: 1; max-width: 200px; padding: 14px 20px;
+  border: 1px solid rgba(180,0,30,0.5);
+  background: rgba(8,0,0,0.55);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  color: rgba(255,218,218,0.92);
+  font-family: var(--ft); font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  cursor: pointer; border-radius: 3px;
+  transition: all 0.28s ease; text-align: center;
+}
+.choice-btn:hover {
+  background: rgba(139,0,0,0.48);
+  border-color: var(--rose); color: #fff;
+  box-shadow: 0 0 22px rgba(200,0,30,0.3);
+}
+
+/* ── PAGE 3 ── */
+#s3 .bg { background-image: url('wallpaper.jpeg'); }
+#s3-panel {
+  position: relative; z-index: 2;
+  max-width: 600px; width: 90%;
+  padding: 52px 52px 52px; text-align: center;
+}
+
+/* ── PAGE 4 ── */
+#s4 .bg { background-image: url('wallpaper.jpeg'); }
+#s4-panel {
+  position: relative; z-index: 2;
+  max-width: 600px; width: 90%;
+  padding: 48px 52px 44px; text-align: center;
+  display: flex; flex-direction: column; gap: 40px; align-items: center;
+}
+
+/* ── PAGE 4.1 ── */
+#s41 .bg { background-image: url('image2.jpeg'); }
+#s41-panel {
+  position: relative; z-index: 2;
+  max-width: 560px; width: 90%;
+  padding: 56px 52px 52px; text-align: center;
+  display: flex; flex-direction: column; gap: 44px; align-items: center;
+}
+#s41-panel .panel-text { font-size: 1.25rem; }
+.yes-btn {
+  padding: 13px 56px;
+  border: 1px solid rgba(180,0,30,0.55);
+  background: transparent;
+  color: rgba(255,218,218,0.92);
+  font-family: var(--ft); font-size: 0.7rem;
+  letter-spacing: 0.32em;
+  cursor: pointer; border-radius: 3px;
+  transition: all 0.28s ease;
+}
+.yes-btn:hover {
+  background: rgba(139,0,0,0.42);
+  border-color: var(--rose); color: #fff;
+  box-shadow: 0 0 26px rgba(200,0,30,0.32);
+}
+
+/* ── PAGE 5 ── */
+#s5 .bg { background-image: url('wallpaper.jpeg'); }
+#s5-img-wrap {
+  position: relative; z-index: 2;
+  max-width: 540px; width: 86%;
+  cursor: pointer;
+}
+#s5-center-img {
+  width: 100%; border-radius: 14px; display: block;
+  box-shadow: 0 12px 60px rgba(0,0,0,0.85), 0 0 50px rgba(139,0,0,0.3);
+  filter: blur(22px) brightness(0.65);
+  transition: filter 1.8s ease;
+}
+#s5-center-img.revealed { filter: blur(0px) brightness(1); }
+#s5-tap-hint {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 3; pointer-events: none;
+  transition: opacity 0.8s ease;
+}
+#s5-tap-hint span {
+  font-family: var(--ft); font-size: 0.65rem;
+  letter-spacing: 0.3em; color: rgba(255,220,220,0.82);
+  text-shadow: 0 2px 10px rgba(0,0,0,0.9);
+  animation: pulse-hint 2s ease-in-out infinite;
+}
+@keyframes pulse-hint { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
+#s5-tap-hint.hidden { opacity: 0; }
+
+/* fade-up on enter */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.screen.active .glass,
+.screen.active #s2-inner,
+.screen.active #s5-img-wrap {
+  animation: fadeUp 0.85s ease forwards;
+}
+</style>
+</head>
+<body>
+
+<!-- ══ PAGE 1 — INTRO ══ -->
+<div class="screen active" id="s1">
+  <div class="bg"></div>
+  <div class="glass" id="s1-panel">
+    <p class="panel-text">
+      Es evidente que nos queremos de vuelta,<br>
+      y nos queremos bien.<br><br>
+      Pero la opción siempre debe darse<br>
+      porque somos personas cordiales.
+    </p>
+    <button class="circle-btn" onclick="goTo('s2')">
+      <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ══ PAGE 2 — QUESTION ══ -->
+<div class="screen" id="s2">
+  <div class="bg"></div>
+  <div id="s2-inner">
+    <div class="glass" id="s2-question">
+      <p class="panel-text">
+        Te daré la opción, y la puedes pensar bien.<br><br>
+        Comenzando este nuevo comienzo,<br>
+        ¿me quieres sin censura?&nbsp;&nbsp;¿O moderado?
+      </p>
+    </div>
+    <img src="image1.jpeg" id="s2-img" alt="">
+    <div class="choice-btns">
+      <button class="choice-btn" id="btn-filtros" onclick="choose('s4', 'btn-censura')">SIN CENSURA</button>
+      <button class="choice-btn" id="btn-censura" onclick="choose('s3', 'btn-filtros')">MODERADO</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PAGE 3 — CENSURA ══ -->
+<div class="screen" id="s3">
+  <div class="bg"></div>
+  <div class="glass" id="s3-panel">
+    <p class="panel-text">
+      Lo más importante para mí es que estemos bien,<br>
+      a la distancia que sea.<br><br>
+      Y si hay que modificar cosas<br>
+      para que haya estabilidad, que así sea.<br><br>
+      Y si estás leyendo esto<br>
+      después de contestar la otra...<br><br>
+      que tramposita&nbsp;😉<br>
+      pero el mensaje aplica igual.
+    </p>
+  </div>
+</div>
+
+<!-- ══ PAGE 4 — SIN FILTROS ══ -->
+<div class="screen" id="s4">
+  <div class="bg"></div>
+  <div class="glass" id="s4-panel">
+    <p class="panel-text">
+      Me es imposible no verte en todos lados<br>
+      después de lo que viví contigo.<br>
+      Me encanta.<br><br>
+      Y después de todo este tiempo me gusta<br>
+      que me sigue dando nervios coquetearte<br>
+      como cuando te dije <em>Vampirita</em>.
+    </p>
+    <button class="circle-btn" onclick="goTo('s41')">
+      <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ══ PAGE 4.1 — VAMPIRITA ══ -->
+<div class="screen" id="s41">
+  <div class="bg"></div>
+  <div class="glass" id="s41-panel">
+    <p class="panel-text">¿Te gusta ser mi vampirita?</p>
+    <button class="yes-btn" onclick="goTo('s5')">Sí</button>
+  </div>
+</div>
+
+<!-- ══ PAGE 5 — OUTRO ══ -->
+<div class="screen" id="s5">
+  <div class="bg"></div>
+  <div id="s5-img-wrap" onclick="revealImage()">
+    <img src="image3.jpeg" id="s5-center-img" alt="">
+    <div id="s5-tap-hint"><span>toca para revelar</span></div>
+  </div>
+</div>
+
+<script>
+function goTo(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+function choose(destination, otherBtnId) {
+  const other = document.getElementById(otherBtnId);
+  other.style.transition = 'opacity 0.9s ease, transform 0.9s ease';
+  other.style.opacity = '0';
+  other.style.transform = 'scale(0.8)';
+  other.style.pointerEvents = 'none';
+  setTimeout(() => { other.style.display = 'none'; }, 900);
+  setTimeout(() => goTo(destination), 1600);
+}
+function revealImage() {
+  const img = document.getElementById('s5-center-img');
+  const hint = document.getElementById('s5-tap-hint');
+  if (!img.classList.contains('revealed')) {
+    img.classList.add('revealed');
+    hint.classList.add('hidden');
+  }
+}
+</script>
+</body>
+</html>
